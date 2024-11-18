@@ -1,14 +1,17 @@
 const html = document.querySelector('html');
-
 const botoes = document.querySelectorAll('.app__card-button');
-const botaoIniciar = document.querySelector('.app__card-primary-button');
 const focoBt = document.querySelector('.app__card-button--foco');
 const curtoBt = document.querySelector('.app__card-button--curto');
 const longoBt = document.querySelector('.app__card-button--longo');
 const banner = document.querySelector('.app__image');
 const titulo = document.querySelector('.app__title');
+const startPauseBt = document.querySelector('#start-pause');
 const musicaFocoInput = document.querySelector('#alternar-musica');
 const musica = new Audio('/sons/luna-rise-part-one.mp3');
+
+let tempoDecorridoEmSegundos = 5;
+
+musica.loop = true;
 
 musicaFocoInput.addEventListener('change', () => {
   if (musica.paused) {
@@ -37,16 +40,16 @@ function alterarContexto(contexto) {
   botoes.forEach((contexto) => {
       contexto.classList.remove('active');
     })
-  html.setAttribute('data-contexto', contexto);
-  banner.setAttribute('src', `/imagens/${contexto}.png`);
+    html.setAttribute('data-contexto', contexto);
+    banner.setAttribute('src', `/imagens/${contexto}.png`);
   switch (contexto) {
     case 'foco':
       titulo.innerHTML = `Otimize sua produtividade,
       <br><strong class="app__title-strong">mergulhe no que importa</strong>`;
     break;
     case 'descanso-curto':
-      titulo.innerHTML = `Que tal dar uma respirada?
-      <br><strong class="app__title-strong">Faça uma pausa curta!</strong>`;
+    titulo.innerHTML = `Que tal dar uma respirada?
+    <br><strong class="app__title-strong">Faça uma pausa curta!</strong>`;
     break;
     case 'descanso-longo':
       titulo.innerHTML = `Hora de voltar à superfície.
@@ -57,3 +60,10 @@ function alterarContexto(contexto) {
   }
 
 }
+
+const contagemRegressiva = () => {
+  tempoDecorridoEmSegundos -= 1;
+  console.log(tempoDecorridoEmSegundos);
+};
+
+startPauseBt.addEventListener('click', contagemRegressiva);
