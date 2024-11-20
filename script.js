@@ -101,8 +101,9 @@ function zerar() {
 }
 
 function mostrarTempo() {
-  const tempo = tempoDecorridoEmSegundos;
-  tempoNaTela.innerHTML = `${tempo}`;
+  const tempo = new Date(tempoDecorridoEmSegundos * 1000);
+  const tempoFormatado = tempo.toLocaleTimeString('pt-BR', {minute: '2-digit', second: '2-digit'});
+  tempoNaTela.innerHTML = `${tempoFormatado}`;
 }
 
 mostrarTempo();
